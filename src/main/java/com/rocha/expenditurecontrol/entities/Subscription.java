@@ -2,6 +2,8 @@ package com.rocha.expenditurecontrol.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionFrequency;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,7 +33,7 @@ public class Subscription {
     private LocalDate dueDate;
 
     @Enumerated(EnumType.STRING)
-    private Frequency frequency;
+    private SubscriptionFrequency frequency;
 
     @Enumerated(EnumType.STRING)
     private SubscriptionStatus status;
@@ -46,7 +48,7 @@ public class Subscription {
     @JsonIgnore
     private List<Notification> notifications;
 
-    public Subscription(Long id, String serviceName, BigDecimal price, LocalDate dueDate, Frequency frequency,SubscriptionStatus status, User user) {
+    public Subscription(Long id, String serviceName, BigDecimal price, LocalDate dueDate, SubscriptionFrequency frequency, SubscriptionStatus status, User user) {
         this.id = id;
         this.serviceName = serviceName;
         this.price = price;

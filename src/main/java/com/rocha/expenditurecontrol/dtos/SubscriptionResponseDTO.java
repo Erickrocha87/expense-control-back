@@ -1,8 +1,7 @@
 package com.rocha.expenditurecontrol.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.rocha.expenditurecontrol.entities.Frequency;
-import com.rocha.expenditurecontrol.entities.SubscriptionStatus;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionFrequency;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,6 +11,6 @@ public record SubscriptionResponseDTO(
         String serviceName,
         BigDecimal price,
         LocalDate dueDate,
-        Frequency frequency,
+        SubscriptionFrequency frequency,
         SubscriptionStatus status) {
 }

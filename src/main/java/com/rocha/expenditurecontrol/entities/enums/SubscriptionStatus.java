@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.entities;
+package com.rocha.expenditurecontrol.entities.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.infra;
+package com.rocha.expenditurecontrol.infra.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,25 +1,17 @@
 package com.rocha.expenditurecontrol.services;
 
 import com.rocha.expenditurecontrol.entities.Notification;
-import com.rocha.expenditurecontrol.entities.Status;
-import com.rocha.expenditurecontrol.entities.Subscription;
-import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.repositories.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class NotificationService{
 
     private final JavaMailSender mailSender;
-    private final SubscriptionService subscriptionService;
-    private final NotificationRepository notificationRepository;
 
     public void sendNotification(Notification notification) {
         SimpleMailMessage message = new SimpleMailMessage();

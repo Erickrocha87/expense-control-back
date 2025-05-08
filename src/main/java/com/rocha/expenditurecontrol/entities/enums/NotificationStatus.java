@@ -1,13 +1,13 @@
-package com.rocha.expenditurecontrol.entities;
+package com.rocha.expenditurecontrol.entities.enums;
 
-public enum Status {
+public enum NotificationStatus {
     PENDING("Pending"),
     FAILED("Failed"),
     SENT("Sent"),;
 
     private String status;
 
-    Status(String status) {
+    NotificationStatus(String status) {
         this.status = status;
     }
     public String getFrequency() {

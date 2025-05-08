@@ -2,6 +2,7 @@ package com.rocha.expenditurecontrol.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.rocha.expenditurecontrol.entities.enums.NotificationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -30,7 +31,7 @@ public class Notification {
     private String message;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private NotificationStatus status;
 
     @Column(name = "send_at")
     @CreationTimestamp
@@ -42,7 +43,7 @@ public class Notification {
     private Subscription subscription;
 
 
-    public Notification(String toUser, String subject, String message, Status status, LocalDateTime sendAt) {
+    public Notification(String toUser, String subject, String message, NotificationStatus status, LocalDateTime sendAt) {
         this.toUser = toUser;
         this.subject = subject;
         this.message = message;

@@ -1,5 +1,6 @@
-package com.rocha.expenditurecontrol.infra;
+package com.rocha.expenditurecontrol.infra.security;
 
+import com.rocha.expenditurecontrol.dtos.JWTUserDataDto;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,10 +28,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             String token = authorizationHeader.substring("Bearer ".length());
-            Optional<JWTUserData> optJwtUserData = tokenService.verifyToken(token);
+            Optional<JWTUserDataDto> optJwtUserData = tokenService.verifyToken(token);
 
             if (optJwtUserData.isPresent()) {
-                JWTUserData jwtUserData = optJwtUserData.get();
+                JWTUserDataDto jwtUserData = optJwtUserData.get();
                 System.out.println(jwtUserData);
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(jwtUserData, null, new ArrayList<>());
                 System.out.println(authenticationToken);

@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.infra;
+package com.rocha.expenditurecontrol.infra.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

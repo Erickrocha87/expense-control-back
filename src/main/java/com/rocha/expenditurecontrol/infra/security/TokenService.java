@@ -1,10 +1,11 @@
-package com.rocha.expenditurecontrol.infra;
+package com.rocha.expenditurecontrol.infra.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.rocha.expenditurecontrol.entities.User;
+import com.rocha.expenditurecontrol.dtos.JWTUserDataDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,7 @@ public class TokenService {
                 .sign(algorithm);
     }
 
-    public Optional<JWTUserData> verifyToken(String token) {
+    public Optional<JWTUserDataDto> verifyToken(String token) {
 
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -39,7 +40,7 @@ public class TokenService {
                     .build()
                     .verify(token);
 
-            return Optional.of(JWTUserData
+            return Optional.of(JWTUserDataDto
                     .builder()
                     .id(jwt.getClaim("userId").asLong())
                     .username(jwt.getClaim("username").asString())

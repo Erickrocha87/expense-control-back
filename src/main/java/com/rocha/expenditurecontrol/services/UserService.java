@@ -4,7 +4,7 @@ import com.rocha.expenditurecontrol.dtos.AuthRequestDTO;
 import com.rocha.expenditurecontrol.dtos.AuthResponseDTO;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.exceptions.UserNotFoundException;
-import com.rocha.expenditurecontrol.infra.JWTUserData;
+import com.rocha.expenditurecontrol.dtos.JWTUserDataDto;
 import com.rocha.expenditurecontrol.mapper.AuthMapper;
 import com.rocha.expenditurecontrol.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class UserService {
     public User getAuthUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(auth);
-        JWTUserData data = (JWTUserData) auth.getPrincipal();
+        JWTUserDataDto data = (JWTUserDataDto) auth.getPrincipal();
         String email = data.email();
         Long id = data.id();
         UserDetails userVerify = userRepository.findUserByEmail(email).orElseThrow(() -> new UserNotFoundException("User Not Found. Id: " + id));

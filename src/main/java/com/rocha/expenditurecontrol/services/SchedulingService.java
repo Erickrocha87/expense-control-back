@@ -1,7 +1,7 @@
 package com.rocha.expenditurecontrol.services;
 
 import com.rocha.expenditurecontrol.entities.Notification;
-import com.rocha.expenditurecontrol.entities.Status;
+import com.rocha.expenditurecontrol.entities.enums.NotificationStatus;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class SchedulingService {
     private final UserService userService;
     private final SubscriptionService subscriptionService;
 
-    @Scheduled(cron = "0 0 8 * * *")
+    @Scheduled(cron = "0 */2 * * * *")
     public void verifyExpiredSubscriptions() {
 
         List<User> users = userService.getAllUsers();
@@ -32,7 +32,7 @@ public class SchedulingService {
                         user.getEmail(),
                         "Assinatura prestes a vencer!",
                         "A assinatura " + sub.getServiceName() + " no valor de: R$" + sub.getPrice() + " vence hoje. Considere pagar ou cancelar.",
-                        Status.SENT,
+                        NotificationStatus.SENT,
                         timestamp);
                 notify.setSubscription(sub);
                 notificationService.sendNotification(notify);

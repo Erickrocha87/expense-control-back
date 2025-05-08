@@ -1,8 +1,8 @@
 package com.rocha.expenditurecontrol.dtos;
 
-import com.rocha.expenditurecontrol.entities.Frequency;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionFrequency;
 import com.rocha.expenditurecontrol.entities.User;
-import com.rocha.expenditurecontrol.entities.SubscriptionStatus;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -29,7 +29,7 @@ public class SubscriptionRequestDTO{
     private LocalDate dueDate;
 
     //@NotBlank(message = "Frequency is required")
-    private Frequency frequency;
+    private SubscriptionFrequency frequency;
 
     private SubscriptionStatus status;
 

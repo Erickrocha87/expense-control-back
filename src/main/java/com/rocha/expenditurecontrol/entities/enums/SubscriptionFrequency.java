@@ -1,9 +1,9 @@
-package com.rocha.expenditurecontrol.entities;
+package com.rocha.expenditurecontrol.entities.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum Frequency {
+public enum SubscriptionFrequency {
     MONTHLY("Mensal"),
     ANNUALLY("Anual"),
     SEMIANNUALLY("Semestral"),
@@ -11,7 +11,7 @@ public enum Frequency {
 
     private String frequency;
 
-    Frequency(String value) {
+    SubscriptionFrequency(String value) {
         this.frequency = value;
     }
 
@@ -21,8 +21,8 @@ public enum Frequency {
     }
     
     @JsonCreator
-    public static Frequency fromString(String value) {
-        for (Frequency freq : Frequency.values()) {
+    public static SubscriptionFrequency fromString(String value) {
+        for (SubscriptionFrequency freq : SubscriptionFrequency.values()) {
             if (freq.name().equalsIgnoreCase(value) || freq.getFrequency().equalsIgnoreCase(value)) {
                 return freq;
             }
