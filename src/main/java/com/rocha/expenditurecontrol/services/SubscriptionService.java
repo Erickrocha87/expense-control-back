@@ -6,6 +6,7 @@ import com.rocha.expenditurecontrol.dtos.SubscriptionRequestDTO;
 import com.rocha.expenditurecontrol.dtos.SubscriptionResponseDTO;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 import com.rocha.expenditurecontrol.exceptions.SubscriptionNotFoundException;
 import com.rocha.expenditurecontrol.mapper.SubscriptionMapper;
 import com.rocha.expenditurecontrol.repositories.SubscriptionRepository;
@@ -16,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -35,11 +35,7 @@ public class SubscriptionService {
         return SubscriptionMapper.toSubscriptionResponseDTO(subscriptionRepository.save(subs));
     }
 
-    public void deleteById(Long id) {
-        subscriptionRepository.deleteById(id);
-    }
-
-    public Subscription updateSubscription(Long id, Subscription subscription) {
+    public SubscriptionResponseDTO updateSubscription(Long id, SubscriptionRequestDTO subscription) {
         Subscription subs = subscriptionRepository.findById(id).orElseThrow(() -> new SubscriptionNotFoundException("Subscription not found. Id: " + id));
         if (subs != null) {
             subs.setId(id);
@@ -49,8 +45,7 @@ public class SubscriptionService {
             subs.setFrequency(subscription.getFrequency());
             subs.setStatus(subscription.getStatus());
             System.out.println();
-            //return SubscriptionMapper.toSubscriptionResponseDTO(subscriptionRepository.save(subs));
-            return subscriptionRepository.save(subs);
+            return SubscriptionMapper.toSubscriptionResponseDTO(subscriptionRepository.save(subs));
         }
         return null;
 
@@ -72,6 +67,30 @@ public class SubscriptionService {
                 subscriptionsPage.getSize(),
                 total
         );
+    }
+
+    public  PageResponseDTO<SubscriptionResponseDTO> getByStatus(String status, int page, int size) {
+        User user = userService.getAuthUser();
+        System.out.println(status);
+        Pageable pageable = PageRequest.of(page, size);
+        SubscriptionStatus statusEnum = SubscriptionStatus.fromString(status);
+
+        Page<Subscription> subscriptionsPage = subscriptionRepository.findByStatus(statusEnum, user.getId(), pageable);
+        Page<SubscriptionResponseDTO> subscriptionsFilteredPage = subscriptionsPage.map(sub -> SubscriptionMapper.toSubscriptionResponseDTO(sub));
+        BigDecimal total = subscriptionsFilteredPage.stream().map(SubscriptionResponseDTO::price).reduce(BigDecimal.ZERO, BigDecimal::add);
+        System.out.println(subscriptionsFilteredPage.getContent());
+        return new PageResponseDTO<>(
+                subscriptionsFilteredPage.getContent(),
+                subscriptionsFilteredPage.getTotalPages(),
+                subscriptionsFilteredPage.getTotalElements(),
+                subscriptionsFilteredPage.getNumber(),
+                subscriptionsFilteredPage.getSize(),
+                total
+        );
+    }
+
+    public void deleteById(Long id) {
+        subscriptionRepository.deleteById(id);
     }
 
     public List<Subscription> getExpiringSubscriptionsForUser(User user){
