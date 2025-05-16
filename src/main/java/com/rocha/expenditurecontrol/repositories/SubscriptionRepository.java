@@ -3,6 +3,7 @@ package com.rocha.expenditurecontrol.repositories;
 import com.rocha.expenditurecontrol.dtos.SubscriptionResponseDTO;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +25,8 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
     @Query(value = "SELECT * FROM tb_subscription s WHERE s.due_date = :currentDate AND  s.user_id = :userId", nativeQuery = true)
     List<Subscription> getExpiringSubscriptionsForUser(@Param("currentDate") LocalDate currentDate, @Param("userId") Long userId);
 
-//    @Query(value = "SELECT * FROM tb_subscription s WHERE s.user_id = :userId ORDER BY s.service_name ASC", nativeQuery = true)
-//  List<SubscriptionResponseDTO> findAllByUserId(@Param("userId") Long userId);
+    @Query("SELECT s FROM Subscription s WHERE s.status = :status AND s.user.id = :userId")
+    Page<Subscription> findByStatus(@Param("status") SubscriptionStatus status, @Param("userId") Long userId, Pageable pageable);
+
 
 }
