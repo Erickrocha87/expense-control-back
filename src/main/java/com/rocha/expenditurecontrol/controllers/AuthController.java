@@ -30,13 +30,11 @@ public class AuthController {
     @PostMapping("/register")
 
     public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody AuthRequestDTO user) {
-        System.out.println(user);
-        System.out.println(user.username() + " " + user.password() + " " + user.email());
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(user));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login (@RequestBody LoginRequestDTO request) {
+    public ResponseEntity<LoginResponseDTO> login (@Valid @RequestBody LoginRequestDTO request) {
         try{
             UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.email(), request.password());
             Authentication authenticate = authenticationManager.authenticate(userAndPass);

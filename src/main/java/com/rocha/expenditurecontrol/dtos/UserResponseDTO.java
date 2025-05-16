@@ -1,7 +1,6 @@
 package com.rocha.expenditurecontrol.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.rocha.expenditurecontrol.entities.Subscription;
 
 import java.util.List;
 

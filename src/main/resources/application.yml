@@ -1,29 +1,3 @@
 spring:
-  application:
-    name: expendituremanagement
-
-
-  datasource:
-    password: ${DATABASE_PASSWORD}
-    username: ${DATABASE_USERNAME}
-    url: ${DATABASE_URL}
-    driver-class-name: ${DATABASE_DRIVER}
-
-  flyway:
-    enabled: true
-
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-
-  mail:
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-
-system:
-  security:
-    secret: ${JWT_SECRET}
-
-
+  profiles:
+    active: dev

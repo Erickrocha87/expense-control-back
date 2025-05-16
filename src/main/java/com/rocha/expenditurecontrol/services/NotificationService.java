@@ -1,7 +1,6 @@
 package com.rocha.expenditurecontrol.services;
 
 import com.rocha.expenditurecontrol.entities.Notification;
-import com.rocha.expenditurecontrol.repositories.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

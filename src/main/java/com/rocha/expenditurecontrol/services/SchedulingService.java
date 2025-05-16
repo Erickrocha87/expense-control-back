@@ -1,9 +1,9 @@
 package com.rocha.expenditurecontrol.services;
 
 import com.rocha.expenditurecontrol.entities.Notification;
-import com.rocha.expenditurecontrol.entities.enums.NotificationStatus;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
+import com.rocha.expenditurecontrol.entities.enums.NotificationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class SchedulingService {
     private final UserService userService;
     private final SubscriptionService subscriptionService;
 
-    @Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "0 0 9 * * *")
     public void verifyExpiredSubscriptions() {
 
         List<User> users = userService.getAllUsers();
