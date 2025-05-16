@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: ${DATA_DATABASE}
+    username: ${DATA_DATABASE}
+    password: ${DATA_DATABASE}
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false
+
+system:
+  security:
+    secret: ${JWT_SECRETE}
