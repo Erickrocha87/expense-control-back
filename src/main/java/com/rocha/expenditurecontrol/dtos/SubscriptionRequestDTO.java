@@ -31,6 +31,7 @@ public class SubscriptionRequestDTO{
     //@NotBlank(message = "Frequency is required")
     private SubscriptionFrequency frequency;
 
+    //@NotBlank(message = "Frequency is required")
     private SubscriptionStatus status;
 
     private User user;
