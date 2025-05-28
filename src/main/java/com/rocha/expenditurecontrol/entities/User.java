@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @Column(unique = true, length = 150)
     private String email;
 
+    @Column(name = "profile_image_Url")
+    private String profileImageUrl;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -44,6 +47,11 @@ public class User implements UserDetails {
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
+    }
+
+    public User(String username, String email) {
+        this.username = username;
         this.email = email;
     }
 

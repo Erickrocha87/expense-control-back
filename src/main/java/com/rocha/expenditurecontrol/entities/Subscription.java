@@ -29,7 +29,6 @@ public class Subscription {
     private BigDecimal price;
 
     @Column(name = "due_date")
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY")
     private LocalDate dueDate;
 
     @Enumerated(EnumType.STRING)
