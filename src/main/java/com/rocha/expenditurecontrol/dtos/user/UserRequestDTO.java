@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.dtos;
+package com.rocha.expenditurecontrol.dtos.user;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Email;

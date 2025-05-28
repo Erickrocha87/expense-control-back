@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.dtos;
+package com.rocha.expenditurecontrol.dtos.user;
 
 public record UserResponseDTO(
         Long id,

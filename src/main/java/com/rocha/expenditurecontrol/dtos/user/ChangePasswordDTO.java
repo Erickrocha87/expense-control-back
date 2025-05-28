@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.dtos;
+package com.rocha.expenditurecontrol.dtos.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

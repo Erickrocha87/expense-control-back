@@ -1,8 +1,8 @@
 package com.rocha.expenditurecontrol.services;
 
-import com.rocha.expenditurecontrol.dtos.JWTUserDataDTO;
-import com.rocha.expenditurecontrol.dtos.UserRequestDTO;
-import com.rocha.expenditurecontrol.dtos.UserResponseDTO;
+import com.rocha.expenditurecontrol.dtos.auth.JWTUserDataDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserRequestDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserResponseDTO;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.exceptions.UserNotFoundException;
 import com.rocha.expenditurecontrol.mapper.UserMapper;

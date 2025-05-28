@@ -1,12 +1,11 @@
 package com.rocha.expenditurecontrol.services;
 
 
-import com.rocha.expenditurecontrol.dtos.PageResponseDTO;
-import com.rocha.expenditurecontrol.dtos.SubscriptionRequestDTO;
-import com.rocha.expenditurecontrol.dtos.SubscriptionResponseDTO;
+import com.rocha.expenditurecontrol.dtos.subscription.PageResponseDTO;
+import com.rocha.expenditurecontrol.dtos.subscription.SubscriptionRequestDTO;
+import com.rocha.expenditurecontrol.dtos.subscription.SubscriptionResponseDTO;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
-import com.rocha.expenditurecontrol.entities.enums.SubscriptionFrequency;
 import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 import com.rocha.expenditurecontrol.exceptions.SubscriptionNotFoundException;
 import com.rocha.expenditurecontrol.mapper.SubscriptionMapper;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -90,11 +90,11 @@ public class SubscriptionService {
     }
     public BigDecimal calculateSubscriptionPrice(SubscriptionResponseDTO subscription) {
         BigDecimal basePrice = subscription.price();
-        return switch (subscription.frequency()){
+        return switch (subscription.frequency()) {
             case MONTHLY -> basePrice;
-            case QUARTERLY -> basePrice.divide(BigDecimal.valueOf(3));
-            case SEMIANNUALLY -> basePrice.divide(BigDecimal.valueOf(6));
-            case ANNUALLY -> basePrice.divide(BigDecimal.valueOf(12));
+            case QUARTERLY -> basePrice.divide(BigDecimal.valueOf(3), 2, RoundingMode.HALF_UP);
+            case SEMIANNUALLY -> basePrice.divide(BigDecimal.valueOf(6), 2, RoundingMode.HALF_UP);
+            case ANNUALLY -> basePrice.divide(BigDecimal.valueOf(12), 2, RoundingMode.HALF_UP);
         };
     }
 

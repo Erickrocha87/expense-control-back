@@ -1,6 +1,12 @@
-package com.rocha.expenditurecontrol.controllers;
+package com.rocha.expenditurecontrol.controllers.auth;
 
-import com.rocha.expenditurecontrol.dtos.*;
+import com.rocha.expenditurecontrol.dtos.auth.AuthRequestDTO;
+import com.rocha.expenditurecontrol.dtos.auth.AuthResponseDTO;
+import com.rocha.expenditurecontrol.dtos.auth.JWTUserDataDTO;
+import com.rocha.expenditurecontrol.dtos.login.LoginRequestDTO;
+import com.rocha.expenditurecontrol.dtos.login.LoginResponseDTO;
+import com.rocha.expenditurecontrol.dtos.tokenpassword.TokenAndPasswordDTO;
+import com.rocha.expenditurecontrol.dtos.user.ChangePasswordDTO;
 import com.rocha.expenditurecontrol.entities.TokenChangePassword;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.infra.security.TokenService;

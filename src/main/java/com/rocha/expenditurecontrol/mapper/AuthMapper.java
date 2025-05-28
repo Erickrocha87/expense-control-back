@@ -1,7 +1,7 @@
 package com.rocha.expenditurecontrol.mapper;
 
-import com.rocha.expenditurecontrol.dtos.AuthRequestDTO;
-import com.rocha.expenditurecontrol.dtos.AuthResponseDTO;
+import com.rocha.expenditurecontrol.dtos.auth.AuthRequestDTO;
+import com.rocha.expenditurecontrol.dtos.auth.AuthResponseDTO;
 import com.rocha.expenditurecontrol.entities.User;
 import org.springframework.stereotype.Component;
 

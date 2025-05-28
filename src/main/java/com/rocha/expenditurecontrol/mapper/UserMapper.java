@@ -1,7 +1,7 @@
 package com.rocha.expenditurecontrol.mapper;
 
-import com.rocha.expenditurecontrol.dtos.UserRequestDTO;
-import com.rocha.expenditurecontrol.dtos.UserResponseDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserRequestDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserResponseDTO;
 import com.rocha.expenditurecontrol.entities.User;
 import lombok.Builder;
 import lombok.experimental.UtilityClass;

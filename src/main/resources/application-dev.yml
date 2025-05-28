@@ -31,6 +31,11 @@ spring:
         - classpath:/static/
         - file:uploads/
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
 
 system:
   security:

@@ -1,6 +1,6 @@
 package com.rocha.expenditurecontrol.repositories;
 
-import com.rocha.expenditurecontrol.dtos.SubscriptionResponseDTO;
+import com.rocha.expenditurecontrol.dtos.subscription.SubscriptionResponseDTO;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;

@@ -1,6 +1,6 @@
 package com.rocha.expenditurecontrol.infra.security;
 
-import com.rocha.expenditurecontrol.dtos.JWTUserDataDTO;
+import com.rocha.expenditurecontrol.dtos.auth.JWTUserDataDTO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,11 +1,10 @@
-package com.rocha.expenditurecontrol.controllers;
+package com.rocha.expenditurecontrol.controllers.notification;
 
-import com.rocha.expenditurecontrol.dtos.EmailDTO;
+import com.rocha.expenditurecontrol.dtos.tokenpassword.EmailDTO;
 import com.rocha.expenditurecontrol.entities.Notification;
 import com.rocha.expenditurecontrol.entities.TokenChangePassword;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.entities.enums.NotificationStatus;
-import com.rocha.expenditurecontrol.infra.security.TokenService;
 import com.rocha.expenditurecontrol.services.NotificationService;
 import com.rocha.expenditurecontrol.services.TokenChangePasswordService;
 import com.rocha.expenditurecontrol.services.UserService;
@@ -26,7 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/email")
 @RequiredArgsConstructor
-public class NotificationController {
+public class NotificationController implements NotificationControllerDoc {
 
     private final NotificationService notificationService;
     private final UserService userService;

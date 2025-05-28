@@ -1,8 +1,8 @@
-package com.rocha.expenditurecontrol.controllers;
+package com.rocha.expenditurecontrol.controllers.user;
 
-import com.rocha.expenditurecontrol.dtos.JWTUserDataDTO;
-import com.rocha.expenditurecontrol.dtos.UserRequestDTO;
-import com.rocha.expenditurecontrol.dtos.UserResponseDTO;
+import com.rocha.expenditurecontrol.dtos.auth.JWTUserDataDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserRequestDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -47,14 +47,17 @@ public interface UserControllerDoc {
             @Parameter(description = "Arquivo de imagem") MultipartFile file
     );
 
-    @Operation(summary = "Atualiza os dados de um usuário")
+    @Operation(summary = "Atualiza os dados de um usuário",
+            description = "Atualiza nome e/ou e-mail do usuário. Se o e-mail for alterado, o usuário será deslogado no front-end.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
                     content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Dados inválidos ou e-mail já em uso", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado", content = @Content)
     })
     ResponseEntity<UserResponseDTO> editUser(
             @Parameter(description = "ID do usuário a ser editado") Long id,
-            @Parameter(description = "Dados atualizados") UserRequestDTO request
+            @Parameter(description = "Dados atualizados (nome e/ou e-mail)") UserRequestDTO request
     );
+
 }

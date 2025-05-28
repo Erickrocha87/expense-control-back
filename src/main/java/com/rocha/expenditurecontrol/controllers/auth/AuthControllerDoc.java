@@ -1,6 +1,12 @@
-package com.rocha.expenditurecontrol.controllers;
+package com.rocha.expenditurecontrol.controllers.auth;
 
-import com.rocha.expenditurecontrol.dtos.*;
+import com.rocha.expenditurecontrol.dtos.auth.AuthRequestDTO;
+import com.rocha.expenditurecontrol.dtos.auth.AuthResponseDTO;
+import com.rocha.expenditurecontrol.dtos.auth.JWTUserDataDTO;
+import com.rocha.expenditurecontrol.dtos.login.LoginRequestDTO;
+import com.rocha.expenditurecontrol.dtos.login.LoginResponseDTO;
+import com.rocha.expenditurecontrol.dtos.tokenpassword.TokenAndPasswordDTO;
+import com.rocha.expenditurecontrol.dtos.user.ChangePasswordDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -60,4 +66,18 @@ public interface AuthControllerDoc {
                     content = @Content(schema = @Schema(implementation = ChangePasswordDTO.class)))
             @org.springframework.web.bind.annotation.RequestBody ChangePasswordDTO dto,
             @AuthenticationPrincipal JWTUserDataDTO user);
+
+    @Operation(summary = "Redefinir senha com token enviado por e-mail")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Senha redefinida com sucesso",
+                    content = @Content(schema = @Schema(implementation = Map.class))),
+            @ApiResponse(responseCode = "400", description = "Token inválido ou expirado", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Usuário não autorizado", content = @Content)
+    })
+    @PutMapping("/forget-password")
+    ResponseEntity<Map<String, String>> forgotPassword(
+            @RequestBody(description = "Token e nova senha", required = true,
+                    content = @Content(schema = @Schema(implementation = TokenAndPasswordDTO.class)))
+            @Valid @org.springframework.web.bind.annotation.RequestBody TokenAndPasswordDTO request
+    );
 }

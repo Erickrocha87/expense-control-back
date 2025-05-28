@@ -1,8 +1,8 @@
-package com.rocha.expenditurecontrol.controllers;
+package com.rocha.expenditurecontrol.controllers.subscription;
 
-import com.rocha.expenditurecontrol.dtos.PageResponseDTO;
-import com.rocha.expenditurecontrol.dtos.SubscriptionRequestDTO;
-import com.rocha.expenditurecontrol.dtos.SubscriptionResponseDTO;
+import com.rocha.expenditurecontrol.dtos.subscription.PageResponseDTO;
+import com.rocha.expenditurecontrol.dtos.subscription.SubscriptionRequestDTO;
+import com.rocha.expenditurecontrol.dtos.subscription.SubscriptionResponseDTO;
 import com.rocha.expenditurecontrol.services.SubscriptionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

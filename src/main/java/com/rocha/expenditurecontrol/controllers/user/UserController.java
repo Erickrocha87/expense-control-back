@@ -1,8 +1,8 @@
-package com.rocha.expenditurecontrol.controllers;
+package com.rocha.expenditurecontrol.controllers.user;
 
-import com.rocha.expenditurecontrol.dtos.JWTUserDataDTO;
-import com.rocha.expenditurecontrol.dtos.UserRequestDTO;
-import com.rocha.expenditurecontrol.dtos.UserResponseDTO;
+import com.rocha.expenditurecontrol.dtos.auth.JWTUserDataDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserRequestDTO;
+import com.rocha.expenditurecontrol.dtos.user.UserResponseDTO;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.services.UserService;
 import lombok.RequiredArgsConstructor;

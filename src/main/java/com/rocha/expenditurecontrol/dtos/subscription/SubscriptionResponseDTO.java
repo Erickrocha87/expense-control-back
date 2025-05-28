@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.dtos;
+package com.rocha.expenditurecontrol.dtos.subscription;
 
 import com.rocha.expenditurecontrol.entities.enums.SubscriptionFrequency;
 import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;

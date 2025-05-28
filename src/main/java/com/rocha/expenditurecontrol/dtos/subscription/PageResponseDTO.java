@@ -1,4 +1,4 @@
-package com.rocha.expenditurecontrol.dtos;
+package com.rocha.expenditurecontrol.dtos.subscription;
 
 import java.math.BigDecimal;
 import java.util.List;
