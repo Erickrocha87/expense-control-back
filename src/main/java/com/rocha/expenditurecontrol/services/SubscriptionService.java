@@ -6,6 +6,7 @@ import com.rocha.expenditurecontrol.dtos.SubscriptionRequestDTO;
 import com.rocha.expenditurecontrol.dtos.SubscriptionResponseDTO;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionFrequency;
 import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 import com.rocha.expenditurecontrol.exceptions.SubscriptionNotFoundException;
 import com.rocha.expenditurecontrol.mapper.SubscriptionMapper;
@@ -57,7 +58,7 @@ public class SubscriptionService {
         Pageable pageable = PageRequest.of(page, size);
 
         List<SubscriptionResponseDTO> subs = subscriptionRepository.findByUser(user);
-        BigDecimal total = subs.stream().map(SubscriptionResponseDTO::price).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal total = subs.stream().map(this::calculateSubscriptionPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         Page<SubscriptionResponseDTO> subscriptionsPage = subscriptionRepository.findSubscriptionsByUser(user, pageable);
         return new PageResponseDTO<>(
                 subscriptionsPage.getContent(),
@@ -71,13 +72,12 @@ public class SubscriptionService {
 
     public  PageResponseDTO<SubscriptionResponseDTO> getByStatus(String status, int page, int size) {
         User user = userService.getAuthUser();
-        System.out.println(status);
         Pageable pageable = PageRequest.of(page, size);
         SubscriptionStatus statusEnum = SubscriptionStatus.fromString(status);
 
         Page<Subscription> subscriptionsPage = subscriptionRepository.findByStatus(statusEnum, user.getId(), pageable);
         Page<SubscriptionResponseDTO> subscriptionsFilteredPage = subscriptionsPage.map(sub -> SubscriptionMapper.toSubscriptionResponseDTO(sub));
-        BigDecimal total = subscriptionsFilteredPage.stream().map(SubscriptionResponseDTO::price).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal total = subscriptionsFilteredPage.stream().map(this::calculateSubscriptionPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         System.out.println(subscriptionsFilteredPage.getContent());
         return new PageResponseDTO<>(
                 subscriptionsFilteredPage.getContent(),
@@ -88,9 +88,23 @@ public class SubscriptionService {
                 total
         );
     }
+    public BigDecimal calculateSubscriptionPrice(SubscriptionResponseDTO subscription) {
+        BigDecimal basePrice = subscription.price();
+        return switch (subscription.frequency()){
+            case MONTHLY -> basePrice;
+            case QUARTERLY -> basePrice.divide(BigDecimal.valueOf(3));
+            case SEMIANNUALLY -> basePrice.divide(BigDecimal.valueOf(6));
+            case ANNUALLY -> basePrice.divide(BigDecimal.valueOf(12));
+        };
+    }
 
     public void deleteById(Long id) {
         subscriptionRepository.deleteById(id);
+    }
+
+    public void markAsLate(Subscription sub){
+        sub.setStatus(SubscriptionStatus.LATE);
+        subscriptionRepository.save(sub);
     }
 
     public List<Subscription> getExpiringSubscriptionsForUser(User user){
