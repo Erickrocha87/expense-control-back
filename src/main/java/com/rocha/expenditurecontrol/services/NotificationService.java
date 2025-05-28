@@ -19,8 +19,15 @@ public class NotificationService{
         message.setSubject(notification.getSubject());
         message.setText(notification.getMessage());
         mailSender.send(message);
-        System.out.println(notification);
-        System.out.println(message);
+    }
+
+    public void sendTokenEmail(Notification notification) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(notification.getToUser());
+        message.setFrom("no-reply@rocha.com");
+        message.setSubject(notification.getSubject());
+        message.setText(notification.getMessage());
+        mailSender.send(message);
     }
 
 }
