@@ -4,6 +4,7 @@ import com.rocha.expenditurecontrol.entities.Notification;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.entities.enums.NotificationStatus;
+import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class SchedulingService {
         for (User user : users) {
             List<Subscription> subscriptions = subscriptionService.getExpiringSubscriptionsForUser(user);
             for (Subscription sub : subscriptions) {
+                subscriptionService.markAsLate(sub);
                 Notification notify = new Notification(
                         user.getEmail(),
                         "Assinatura prestes a vencer!",
@@ -39,5 +41,4 @@ public class SchedulingService {
             }
         }
     }
-
 }
