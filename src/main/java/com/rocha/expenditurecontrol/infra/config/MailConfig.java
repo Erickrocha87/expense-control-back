@@ -15,8 +15,12 @@ public class MailConfig {
 
     private final String password;
 
-    public MailConfig(){
-        Dotenv dotenv = Dotenv.load();
+    public MailConfig() {
+        Dotenv dotenv = Dotenv.configure()
+                .directory(System.getProperty("user.dir"))
+                .ignoreIfMissing()
+                .load();
+
         this.username = dotenv.get("MAIL_USERNAME");
         this.password = dotenv.get("MAIL_PASSWORD");
     }
