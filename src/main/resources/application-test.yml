@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DATA_DATABASE}
-    username: ${DATA_DATABASE}
-    password: ${DATA_DATABASE}
+    url: jdbc:h2:mem:prodDb
+    username: admin
+    password: admin
     driver-class-name: org.h2.Driver
 
   h2:
@@ -19,4 +19,4 @@ spring:
 
 system:
   security:
-    secret: ${JWT_SECRETE}
+    secret: ADHSHS3243845FVXHJSDhdsau
