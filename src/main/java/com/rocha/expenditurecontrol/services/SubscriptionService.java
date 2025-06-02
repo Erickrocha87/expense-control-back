@@ -7,6 +7,7 @@ import com.rocha.expenditurecontrol.dtos.subscription.SubscriptionResponseDTO;
 import com.rocha.expenditurecontrol.entities.Subscription;
 import com.rocha.expenditurecontrol.entities.User;
 import com.rocha.expenditurecontrol.entities.enums.SubscriptionStatus;
+import com.rocha.expenditurecontrol.exceptions.SubscriptionBadRequest;
 import com.rocha.expenditurecontrol.exceptions.SubscriptionNotFoundException;
 import com.rocha.expenditurecontrol.mapper.SubscriptionMapper;
 import com.rocha.expenditurecontrol.repositories.SubscriptionRepository;
@@ -30,26 +31,32 @@ public class SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
 
     public SubscriptionResponseDTO createSubscription(SubscriptionRequestDTO subscription) {
-        User user = userService.getAuthUser();
-        subscription.setUser(user);
-        Subscription subs = SubscriptionMapper.toSubscription(subscription);
+            LocalDate today = LocalDate.now();
+            User user = userService.getAuthUser();
+            subscription.setUser(user);
+            Subscription subs = SubscriptionMapper.toSubscription(subscription);
+            if (subs.getDueDate().isBefore(today)) {
+                throw new SubscriptionBadRequest("Subscription cannot be created before the current day"); //Opção válida também optional
+            }
         return SubscriptionMapper.toSubscriptionResponseDTO(subscriptionRepository.save(subs));
     }
 
     public SubscriptionResponseDTO updateSubscription(Long id, SubscriptionRequestDTO subscription) {
         Subscription subs = subscriptionRepository.findById(id).orElseThrow(() -> new SubscriptionNotFoundException("Subscription not found. Id: " + id));
-        if (subs != null) {
-            subs.setId(id);
-            subs.setServiceName(subscription.getServiceName());
-            subs.setPrice(subscription.getPrice());
-            subs.setDueDate(subscription.getDueDate());
-            subs.setFrequency(subscription.getFrequency());
-            subs.setStatus(subscription.getStatus());
-            System.out.println();
-            return SubscriptionMapper.toSubscriptionResponseDTO(subscriptionRepository.save(subs));
+        if (subs == null) {
+            throw new SubscriptionBadRequest("Subscription not found. Id: " + id); //Opção válida também optional
         }
-        return null;
-
+        if (subs.getDueDate().isBefore(LocalDate.now())) {
+            throw new SubscriptionBadRequest("Subscription cannot be created before the current day");
+        }
+        subs.setId(id);
+        subs.setServiceName(subscription.getServiceName());
+        subs.setPrice(subscription.getPrice());
+        subs.setDueDate(subscription.getDueDate());
+        subs.setFrequency(subscription.getFrequency());
+        subs.setStatus(subscription.getStatus());
+        System.out.println();
+        return SubscriptionMapper.toSubscriptionResponseDTO(subscriptionRepository.save(subs));
     }
 
 
