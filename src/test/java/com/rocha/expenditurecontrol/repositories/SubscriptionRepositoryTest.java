@@ -34,7 +34,7 @@ class SubscriptionRepositoryTest {
 
     @Test
     @DisplayName("Deve retornar assinaturas com vencimento na data atual para o usuário")
-    void shouldReturnSubscriptionsExpiringTodayForUser() {
+    void returnSubscriptionsExpiringTodayForUser() {
 
         User user = new User();
         user.setEmail("teste@exemplo.com");
@@ -62,7 +62,7 @@ class SubscriptionRepositoryTest {
 
     @Test
     @DisplayName("Deve retornar as assinaturas do usuário")
-    void findByUser() {
+    void returnSubscriptionsFindByUser() {
         User user = new User();
         user.setEmail("teste@exemplo.com");
         user.setPassword("123456");
@@ -87,7 +87,7 @@ class SubscriptionRepositoryTest {
 
     @Test
     @DisplayName("Deve retornar as assinaturas do usuário paginadas")
-    void findSubscriptionsByUser() {
+    void returnSubscriptionsPaginateFindByUser() {
 
         User user = new User();
         user.setEmail("teste@exemplo.com");
@@ -109,6 +109,33 @@ class SubscriptionRepositoryTest {
         Pageable pageable = PageRequest.of(0, 10);
 
         Page<SubscriptionResponseDTO> subs = subscriptionRepository.findSubscriptionsByUser(savedUser, pageable);
+        assertThat(subs).isNotEmpty();
     }
 
+    @Test
+    @DisplayName("Deve retornar as assinaturas paginadas com base no status passado")
+
+    void returnSubscriptionsFindByStatus() {
+        User user = new User();
+        user.setEmail("teste@exemplo.com");
+        user.setPassword("123456");
+        user.setUsername("Teste");
+
+        User savedUser = userRepository.save(user);
+
+        Subscription subscription = new Subscription();
+        subscription.setServiceName("Netflix");
+        subscription.setPrice(BigDecimal.valueOf(49.90));
+        subscription.setFrequency(SubscriptionFrequency.MONTHLY);
+        subscription.setStatus(SubscriptionStatus.LATE);
+        subscription.setDueDate(LocalDate.now());
+        subscription.setUser(savedUser);
+
+        subscriptionRepository.save(subscription);
+        Pageable pegeable = PageRequest.of(0, 10);
+
+        Page<Subscription> subs = subscriptionRepository.findByStatus(SubscriptionStatus.LATE, savedUser.getId(), pegeable);
+        assertThat(subs).isNotEmpty();
+
+    }
 }
