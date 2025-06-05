@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -41,6 +42,7 @@ public class SubscriptionService {
         return SubscriptionMapper.toSubscriptionResponseDTO(subscriptionRepository.save(subs));
     }
 
+    @Transactional
     public SubscriptionResponseDTO updateSubscription(Long id, SubscriptionRequestDTO subscription) {
         Subscription subs = subscriptionRepository.findById(id).orElseThrow(() -> new SubscriptionNotFoundException("Subscription not found. Id: " + id));
         if (subs == null) {
@@ -105,8 +107,10 @@ public class SubscriptionService {
         };
     }
 
+    @Transactional
     public void deleteById(Long id) {
-        subscriptionRepository.deleteById(id);
+        Subscription subscription = subscriptionRepository.getReferenceById(id);
+        subscriptionRepository.delete(subscription);
     }
 
     public void markAsLate(Subscription sub){

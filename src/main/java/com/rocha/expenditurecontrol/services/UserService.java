@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -44,14 +45,11 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User Not Found. Id: " + id));
-    }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @Transactional
     public UserResponseDTO updateUser(Long id, UserRequestDTO requestDTO){
         User updateUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
